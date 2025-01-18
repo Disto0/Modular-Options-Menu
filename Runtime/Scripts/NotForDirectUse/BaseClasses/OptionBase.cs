@@ -99,6 +99,69 @@ namespace ModularOptions {
 				return _defaultValue;
 		}
 
+
+		public static void SaveVector2(string _key, Vector2 _value)
+		{
+			PlayerPrefs.SetFloat(_key + "_x", _value.x);
+			PlayerPrefs.SetFloat(_key + "_x", _value.y);
+		}
+
+		public static Vector2 LoadVector2(string _key, Vector2 _defaultValue)
+		{
+			float x = PlayerPrefs.GetFloat(_key + "_x", _defaultValue.x);
+			float y = PlayerPrefs.GetFloat(_key + "_y", _defaultValue.y);
+			return new Vector2(x, y);
+		}
+
+		public static void SaveVector3(string _key, Vector3 _value)
+		{
+			PlayerPrefs.SetFloat(_key + "_x", _value.x);
+			PlayerPrefs.SetFloat(_key + "_y", _value.y);
+			PlayerPrefs.SetFloat(_key + "_z", _value.z);
+		}
+
+		public static Vector3 LoadVector3(string _key, Vector3 _defaultValue)
+		{
+			float x = PlayerPrefs.GetFloat(_key + "_x", _defaultValue.x);
+			float y = PlayerPrefs.GetFloat(_key + "_y", _defaultValue.y);
+			float z = PlayerPrefs.GetFloat(_key + "_z", _defaultValue.z);
+			return new Vector3(x, y, z);
+		}
+
+		public static void SaveVector4(string _key, Vector4 _value)
+		{
+			PlayerPrefs.SetFloat(_key + "_x", _value.x);
+			PlayerPrefs.SetFloat(_key + "_y", _value.y);
+			PlayerPrefs.SetFloat(_key + "_z", _value.z);
+			PlayerPrefs.SetFloat(_key + "_w", _value.w);
+		}
+
+		public static Vector4 LoadVector4(string _key, Vector4 _defaultValue)
+		{
+			float x = PlayerPrefs.GetFloat(_key + "_x", _defaultValue.x);
+			float y = PlayerPrefs.GetFloat(_key + "_y", _defaultValue.y);
+			float z = PlayerPrefs.GetFloat(_key + "_z", _defaultValue.z);
+			float w = PlayerPrefs.GetFloat(_key + "_w", _defaultValue.w);
+			return new Vector4(x, y, z, w);
+		}
+
+		public static void SaveQuaternion(string _key, Quaternion _value)
+		{
+			PlayerPrefs.SetFloat(_key + "_x", _value.x);
+			PlayerPrefs.SetFloat(_key + "_y", _value.y);
+			PlayerPrefs.SetFloat(_key + "_z", _value.z);
+			PlayerPrefs.SetFloat(_key + "_w", _value.w);
+		}
+
+		public static Quaternion LoadQuaternion(string _key, Quaternion _defaultValue)
+		{
+			float x = PlayerPrefs.GetFloat(_key + "_x", _defaultValue.x);
+			float y = PlayerPrefs.GetFloat(_key + "_y", _defaultValue.y);
+			float z = PlayerPrefs.GetFloat(_key + "_z", _defaultValue.z);
+			float w = PlayerPrefs.GetFloat(_key + "_w", _defaultValue.w);
+			return new Quaternion(x, y, z, w);
+		}
+
 		/// <summary>
 		/// Changed settings are kept in memory even without calling PlayerPrefs.Save(), but not saved to disk until
 		/// PlayerPrefs.Save() is called or the application quits. Saving avoids loss of data in the case of a crash.
