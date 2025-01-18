@@ -26,7 +26,7 @@ namespace ModularOptions {
 
 		protected override void ApplySetting(int _value){
 			_value = Mathf.Min(_value, textureResolutionOptions.Length-1); //Limit max value to avoid invalid saved values
-			QualitySettings.masterTextureLimit = (int)textureResolutionOptions[_value];
+			QualitySettings.globalTextureMipmapLimit = (int)textureResolutionOptions[_value];
 			QualitySettings.anisotropicFiltering = anisotropicFilteringOptions[_value];
 		}
     }
