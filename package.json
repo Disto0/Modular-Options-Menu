@@ -1,0 +1,18 @@
+{
+	"name": "com.unity.modular-option-menu",
+	"version": "0.1.0",
+	"unity": "2022.3",
+	"displayName": "Modular Option Menu",
+	"description": "Modular Menu creation tool for Unity. Build UI and Menu Logic with preset or custom options.",
+	"type": "tool",
+	"keywords": [
+		"menu",
+		"tool"
+	],
+	"author": {
+		"name": ""
+	},
+	"samples": [
+
+    ]
+}
