@@ -1,4 +1,4 @@
-#if UNITY_RENDER_PIPELINE_HIGH_DEFINITION
+#if USE_HDRP
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
 
