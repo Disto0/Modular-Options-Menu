@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine.Rendering;
 
 namespace ModularOptions {
 	/// <summary>
@@ -12,8 +13,8 @@ namespace ModularOptions {
 
 		public static readonly Dictionary<string, string> namespaceDefinePairs = new Dictionary<string, string>(){
 			["TMPro"] = "TMP_PRESENT",
-			["UnityEngine.Rendering.Universal"] = "URP_PRESENT",
-			["UnityEngine.Rendering.HighDefinition"] = "HDRP_PRESENT",
+			//["UnityEngine.Rendering.Universal"] = "URP_PRESENT",    << Remove SRP because namespace detections cause issues with them.
+			//["UnityEngine.Rendering.HighDefinition"] = "HDRP_PRESENT",
 			["UnityEngine.Rendering.PostProcessing"] = "UNITY_POST_PROCESSING_STACK_V2",
 			["AuraAPI"] = "AURA_PRESENT"
 		};
@@ -37,7 +38,16 @@ namespace ModularOptions {
 					remove.Add(pair.Value);
 			}
 
-			var validBuildTargets = DefineUtilities.GetValidBuildTargets();
+			// Change detection of srp. >> The define is only set when an SRP is in use.
+			if(GraphicsSettings.renderPipelineAsset != null)
+            {
+				if(GraphicsSettings.renderPipelineAsset.renderPipelineShaderTag == "UniversalPipeline")
+					add.Add("USE_URP");
+				if (GraphicsSettings.renderPipelineAsset.renderPipelineShaderTag == "HDRenderPipeline")
+					add.Add("USE_HDRP");
+			}
+
+			var validBuildTargets = DefineUtilities.GetValidBuildTargets().ToList();
 			DefineUtilities.AddDefines(add, validBuildTargets);
 			DefineUtilities.RemoveDefines(remove, validBuildTargets);
 		}
@@ -118,7 +128,8 @@ namespace ModularOptions {
 			return Enum.GetValues(typeof(BuildTargetGroup))
 				.Cast<BuildTargetGroup>()
 				.Where(_ => _ != BuildTargetGroup.Unknown)
-				.Where(_ => !IsObsolete(_));
+				.Where(_ => !IsObsolete(_))
+				.Where(_ => IsGroupSupported(_));
 		}
 
         public static bool IsObsolete(this BuildTargetGroup group){
@@ -129,6 +140,30 @@ namespace ModularOptions {
             return obsoleteAttributes != null && obsoleteAttributes.Length > 0;
         }
 
+		//private static bool IsGroupAvailable(BuildTargetGroup targetGroup)
+		//{
+
+		//	// Vérifie si au moins une cible associée au groupe est supportée
+		//	foreach (BuildTarget target in Enum.GetValues(typeof(BuildTarget)))
+		//	{
+		//		if (BuildPipeline.GetBuildTargetGroup(target) == targetGroup &&
+		//			BuildPipeline.IsBuildTargetSupported(targetGroup, target))
+		//		{
+		//			return true;
+		//		}
+		//	}
+		//	return false;
+		//}
+		private static bool IsGroupSupported(BuildTargetGroup targetGroup)
+		{
+			// Vérifie si au moins une cible dans le groupe est supportée
+			foreach (BuildTarget target in Enum.GetValues(typeof(BuildTarget)))
+			{
+				if (BuildPipeline.IsBuildTargetSupported(targetGroup, target))
+					return true;
+			}
+			return false;
+		}
 		/// <returns>
 		/// Unique namespaces in all Assemblies in the CurrentDomain.
 		/// </returns>
