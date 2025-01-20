@@ -1,4 +1,4 @@
-#if (URP_PRESENT || HDRP_PRESENT)
+#if (UNITY_RENDER_PIPELINE_UNIVERSAL || UNITY_RENDER_PIPELINE_HIGH_DEFINITION)
 using UnityEngine;
 using UnityEngine.Rendering;
 

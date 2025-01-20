@@ -1,8 +1,8 @@
-#if (URP_PRESENT || HDRP_PRESENT)
+#if (UNITY_RENDER_PIPELINE_HIGH_DEFINITION || UNITY_RENDER_PIPELINE_HIGH_DEFINITION)
 using UnityEngine;
-#if URP_PRESENT
+#if UNITY_RENDER_PIPELINE_UNIVERSAL
 using UnityEngine.Rendering.Universal;
-#elif HDRP_PRESENT
+#elif UNITY_RENDER_PIPELINE_HIGH_DEFINITION
 using UnityEngine.Rendering.HighDefinition;
 #endif
 namespace ModularOptions {

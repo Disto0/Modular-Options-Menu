@@ -57,7 +57,7 @@ namespace ModularOptions {
 
 		void OnValueChange(int _resolutionIndex){
 			var res = resolutions[_resolutionIndex];
-			Screen.SetResolution(res.width, res.height, Screen.fullScreenMode, res.refreshRate);
+			Screen.SetResolution(res.width, res.height, Screen.fullScreenMode, res.refreshRateRatio);
 		}
 	}
 }
