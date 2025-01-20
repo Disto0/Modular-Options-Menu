@@ -8,31 +8,24 @@ namespace ModularOptions {
 	[AddComponentMenu("Modular Options/Misc/Disable On Callback")]
 	public class DisableOnCallback : MonoBehaviour {
 
+		// TODO Bitwise check with mask for multiples values support
 
-		public UnityCallbackMessageType callbacks;
+		public UnityBehaviourCallbackType validCallbacks;
 		void Awake()
 		{
-			if (callbacks == UnityCallbackMessageType.Awake)
+			if (validCallbacks == UnityBehaviourCallbackType.Awake)
 				gameObject.SetActive(false);
 		}
 
 		void Start(){
-			if(callbacks == UnityCallbackMessageType.Start)
+			if(validCallbacks == UnityBehaviourCallbackType.Start)
 				gameObject.SetActive(false);
 		}
 
 		void OnEnable()
 		{
-			if (callbacks == UnityCallbackMessageType.OnEnable)
+			if (validCallbacks == UnityBehaviourCallbackType.OnEnable)
 				gameObject.SetActive(false);
 		}
 	}
-
-	[Flags]
-	public enum UnityCallbackMessageType
-    {
-		Awake = 1,
-		Start = 2,
-		OnEnable = 4
-    }
 }
